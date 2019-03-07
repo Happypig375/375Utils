@@ -8,14 +8,15 @@ let readlns() =
      |>  Seq.takeWhile ((<>) null)
 
 [<EntryPoint>]
-let main argv =
+let rec main argv =
     printfn
         "\
 Welcome to 375Utils, select one option to continue:
+0) Exit
 1) Generate Braille Patterns, result is saved to clipboard"
     let rec getInput() =
         match readln() |> Int32.TryParse with
-        | true, x when x > 0 -> x
+        | true, x when x >= 0 -> x
         | _ -> printfn "Invalid input. Please input a valid positive integer: "
                getInput()
     let rec work x =
@@ -40,7 +41,8 @@ Welcome to 375Utils, select one option to continue:
             |> TextCopy.Clipboard.SetText
         | _ -> printfn "No matching option found. Please input a valid option: "
                getInput() |> work
-    getInput() |> work
-    printfn "Press any key to continue..."
-    read() |> ignore
-    0
+    match getInput() with
+    | 0 -> 0
+    | x -> x |> work
+           printfn "Option finished executing."
+           main argv
