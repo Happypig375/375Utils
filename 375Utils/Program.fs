@@ -5,7 +5,7 @@ let readln = Console.ReadLine
 let readlns() =
      fun _ -> Console.ReadLine()
      |>  Seq.initInfinite
-     |>  Seq.takeWhile ((<>) null)
+     |>  Seq.takeWhile ((<>) "")
 
 [<EntryPoint>]
 let rec main argv =
@@ -39,6 +39,7 @@ Welcome to 375Utils, select one option to continue:
             |> char
             |> string
             |> TextCopy.Clipboard.SetText
+        | 2 -> readlns() |> String.Concat |> printf "%s"
         | _ -> printfn "No matching option found. Please input a valid option: "
                getInput() |> work
     match getInput() with
