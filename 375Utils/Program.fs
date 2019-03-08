@@ -5,7 +5,7 @@ let readln = Console.ReadLine
 let readlns() =
      fun _ -> Console.ReadLine()
      |>  Seq.initInfinite
-     |>  Seq.takeWhile ((<>) "")
+     |>  Seq.takeWhile (String.IsNullOrWhiteSpace >> not)
 
 [<EntryPoint>]
 let rec main argv =
